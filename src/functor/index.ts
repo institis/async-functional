@@ -3,6 +3,12 @@
  */
 import {logger} from '../logging';
 
+/**
+ * Accepts a function to transform paramter of type T, to U. It returns a function that takes an async generator of type T, and returns an
+ * async generator of type U.
+ *
+ * @param fn Function to lift to async generator level.
+ */
 export function functor<T, U>(
   fn: (tval: T) => U
 ): (tgen: AsyncGenerator<T>) => AsyncGenerator<U> {
@@ -31,6 +37,12 @@ export async function* map<T, U>(
   }
 }
 
+/**
+ * The filter uses a filter 'fn' which determines if an element of an iterator should be filtered through to the output iterator.
+ *
+ * @param iterator Input iterator on which a filter `fn` is applied.
+ * @param fn A function which produces true, if an element should pass through. Else the element will not be filtered through.
+ */
 export async function* filter<T>(
   iterator: AsyncGenerator<T>,
   fn: (value: T) => boolean
@@ -40,6 +52,14 @@ export async function* filter<T>(
   }
 }
 
+/**
+ * This function iterates simultaneously on both iterator one at a time. And creates a pair and pushes it to output iterator. If one of the
+ * iterator exhausts its elements, then this function stops iteration. In short the length of the output iterator is the length of the
+ * shorter of the input iterator.
+ *
+ * @param titerator A left iterator,each element of it will be paired with right.
+ * @param uiterator A right iterator to be paired with elements of left iterator.
+ */
 export async function* zip<T, U>(
   titerator: AsyncGenerator<T>,
   uiterator: AsyncGenerator<U>
@@ -53,6 +73,13 @@ export async function* zip<T, U>(
   }
 }
 
+/**
+ * This is same as `zip`, except a function `fn` is applied on each pair, and its result is pushed to output iterator.
+ *
+ * @param titerator Left iterator to be combined pairwise with right iterator.
+ * @param uiterator Right iterator to be combined pairwise with left iterator.
+ * @param fn A function that works on the pair.
+ */
 export async function* zipWith<T, U, V>(
   titerator: AsyncGenerator<T>,
   uiterator: AsyncGenerator<U>,
@@ -65,14 +92,4 @@ export async function* zipWith<T, U, V>(
     t = await titerator.next();
     u = await uiterator.next();
   }
-}
-
-export async function* of<T>(iterator: Iterable<T>) {
-  for await (const t of iterator) yield t;
-}
-
-export async function collect<T>(iterator: AsyncGenerator<T>) {
-  const output: T[] = [];
-  for await (const t of iterator) output.push(t);
-  return output;
 }

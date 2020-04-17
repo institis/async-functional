@@ -1,5 +1,6 @@
 /* eslint-disable */
-import {functor, map, filter, of} from '..';
+import {functor, map} from '..';
+import {of} from '../../prelude';
 import {logger} from '../../logging';
 
 describe('A functor', () => {

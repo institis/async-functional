@@ -1,3 +1,27 @@
+/**
+ * @copyright 2020 Yogesh Sajanikar
+ */
+
+/**
+ * Converts an iterator to an async generator of same type.
+ *
+ * @param iterator Input iterator
+ */
+export async function* of<T>(iterator: Iterable<T>) {
+  for await (const t of iterator) yield t;
+}
+
+/**
+ * Collect results of the async generator in a promise.
+ *
+ * @param iterator Input iterator.
+ */
+export async function collect<T>(iterator: AsyncGenerator<T>) {
+  const output: T[] = [];
+  for await (const t of iterator) output.push(t);
+  return output;
+}
+
 export async function* take<T>(titerator: AsyncGenerator<T>, num: number) {
   let t = await titerator.next();
   let n = 0;

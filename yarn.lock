@@ -2906,6 +2906,16 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jsverify@^0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/jsverify/-/jsverify-0.8.4.tgz#b914ccc024103d946b503f18ee780ec43febeece"
+  integrity sha512-nUG73Sfi8L4eOkc7pv9sflgAm43v+z6XMuePGVdRoBUxBLJiVcMcf3Xgc4h19eHHF3JwsaagOkUu825UnPBLJw==
+  dependencies:
+    lazy-seq "^1.0.0"
+    rc4 "~0.1.5"
+    trampa "^1.0.0"
+    typify-parser "^1.1.0"
+
 keyv@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"
@@ -2955,6 +2965,11 @@ latest-version@^5.0.0:
   integrity sha512-weT+r0kTkRQdCdYCNtkMwWXQTMEswKrFBkm4ckQOMVhhqhIMI1UT2hMj+1iigIhgSZm5gTmrRXBNoGUgaTY1xA==
   dependencies:
     package-json "^6.3.0"
+
+lazy-seq@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/lazy-seq/-/lazy-seq-1.0.0.tgz#880cb8aab256026382e02f53ec089682a74c5b6a"
+  integrity sha1-iAy4qrJWAmOC4C9T7AiWgqdMW2o=
 
 leven@^3.1.0:
   version "3.1.0"
@@ -3578,6 +3593,11 @@ quick-lru@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
   integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
+
+rc4@~0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/rc4/-/rc4-0.1.5.tgz#08c6e04a0168f6eb621c22ab6cb1151bd9f4a64d"
+  integrity sha1-CMbgSgFo9utiHCKrbLEVG9n0pk0=
 
 rc@^1.2.8:
   version "1.2.8"
@@ -4358,6 +4378,11 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
+trampa@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/trampa/-/trampa-1.0.1.tgz#b866bc192331f64b4f57a8acf4ab71d0e900b692"
+  integrity sha512-93WeyHNuRggPEsfCe+yHxCgM2s6H3Q8Wmlt6b6ObJL8qc7eZlRaFjQxwTrB+zbvGtlDRnAkMoYYo3+2uH/fEwA==
+
 trim-newlines@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.0.tgz#79726304a6a898aa8373427298d54c2ee8b1cb30"
@@ -4447,6 +4472,11 @@ typescript@^3.8.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+
+typify-parser@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/typify-parser/-/typify-parser-1.1.0.tgz#ac73bfa5f25343468e2d0f3346c6117bc03d3c99"
+  integrity sha1-rHO/pfJTQ0aOLQ8zRsYRe8A9PJk=
 
 union-value@^1.0.0:
   version "1.0.1"

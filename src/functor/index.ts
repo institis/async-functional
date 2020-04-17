@@ -2,14 +2,24 @@
  * @copyright 2020 Yogesh Sajanikar
  */
 
+export function functor<T, U>(
+  fn: (tval: T) => U
+): (tgen: AsyncGenerator<T>) => AsyncGenerator<U> {
+  return async function* lifted(tgen) {
+    for await (const t of tgen) {
+      yield fn(t);
+    }
+  };
+}
+
 /**
  * Map input to output using given function `fn`
  * @param iterator Iterator of type t
  * @param fn Function that takes type T and returns type U
  */
 export async function* map<T, U>(
-  iterator: AsyncGenerator<T>,
-  fn: (value: T) => U
+  fn: (value: T) => U,
+  iterator: AsyncGenerator<T>
 ) {
   for await (const t of iterator) {
     const u = fn(t);

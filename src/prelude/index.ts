@@ -18,3 +18,14 @@ export async function* takeWhile<T>(
     t = await titerator.next();
   }
 }
+
+export function compose<T, U, V>(
+  ufn: (tval: T) => U,
+  vfn: (vval: U) => V
+): (tval: T) => V {
+  return (t: T) => {
+    const u = ufn(t);
+    const v = vfn(u);
+    return v;
+  };
+}

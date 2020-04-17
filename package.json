@@ -4,11 +4,19 @@
   "description": "A functional approach to deal with async generators",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/institis/async-functional.git"
+  },
   "files": [
     "build/src"
   ],
   "license": "Apache-2.0",
-  "keywords": [],
+  "keywords": [
+    "async",
+    "generator",
+    "utility"
+  ],
   "scripts": {
     "test": "jest",
     "check": "gts check",

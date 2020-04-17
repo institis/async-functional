@@ -1,12 +1,16 @@
 /**
  * @copyright 2020 Yogesh Sajanikar
  */
+import {logger} from '../logging';
 
 export function functor<T, U>(
   fn: (tval: T) => U
 ): (tgen: AsyncGenerator<T>) => AsyncGenerator<U> {
+  logger.debug('Lifting function', {function: functor.name});
   return async function* lifted(tgen) {
+    logger.debug('Lifted functor from', {function: lifted.name});
     for await (const t of tgen) {
+      logger.debug('Lifted functor', {function: lifted.name, value: t});
       yield fn(t);
     }
   };

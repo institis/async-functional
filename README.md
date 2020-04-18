@@ -2,6 +2,8 @@
 
 The asynchronous generator `AsyncGenerator` appears on many occasions. For example, fetching a set of records from a REST API, or dealing with database records. This package tries to give a _functional_ flavor to dealing with such situations.
 
+One can consider `AysncGenerator` as a stream. This library allows async generators to be treated in functional manner.
+
 ## Contents
 
 ### Functional Operators

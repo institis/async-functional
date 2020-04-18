@@ -4,18 +4,23 @@
  */
 
 import * as jsc from 'jsverify';
-import {of, collect} from '..';
+import {of, collect, take} from '..';
+
+const arbitrayArraySubset = jsc.array(jsc.number);
 
 describe('Prelude', () => {
-  it("=> 'of' should convert input iterator to async generator", async () => {
-    expect(
-      jsc.forall(jsc.array(jsc.number), async (inp: Array<number>) => {
-        const result = await collect(of(inp));
-        for (let index = 0; index < inp.length; index++) {
-          if (inp[index] !== result[index]) return false;
-        }
-        return true;
-      })
-    ).toBeTruthy();
+  jsc.property('collect(of(input)) == input', jsc.array(jsc.nat), async inp => {
+    const result = await collect(of(inp));
+    for (let index = 0; index < inp.length; index++) {
+      if (inp[index] !== result[index]) return false;
+    }
+    return true;
   });
+
+  jsc.property('input[slice] == take(input, slice)', jsc.array(jsc.nat),jsc.nat, async (input, subset) => {
+    const result = await collect(take(of(input), subset));
+    const min = Math.min(input.length, subset);
+    return result.length == min;
+  });
+
 });

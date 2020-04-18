@@ -22,16 +22,26 @@ export async function collect<T>(iterator: AsyncGenerator<T>) {
   return output;
 }
 
+/**
+ * Take only `num` elements from the input iterator. The resultant iterator
+ * @param titerator Input iterator
+ * @param num How many elements we need from the input iterator
+ */
 export async function* take<T>(titerator: AsyncGenerator<T>, num: number) {
-  let t = await titerator.next();
   let n = 0;
-  while (!t.done && n < num) {
+  while (n < num) {
+    const t = await titerator.next();
+    if (t.done) break;
     yield t.value;
-    t = await titerator.next();
     n = n + 1;
   }
 }
 
+/**
+ * Fetches elements of input iterator as long as they satisfy the condition specified by `fn`.
+ * @param titerator Input iterator
+ * @param fn A function that returns boolean
+ */
 export async function* takeWhile<T>(
   titerator: AsyncGenerator<T>,
   fn: (value: T) => boolean

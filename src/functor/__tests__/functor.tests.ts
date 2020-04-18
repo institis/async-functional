@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import * as jsc from 'jsverify';
-import {functor, map, zip} from '..';
+import {functor, map, zip, filter} from '..';
 import {of, compose, collect} from '../../prelude';
 import {logger} from '../../logging';
 
@@ -75,6 +75,21 @@ describe('A functor', () => {
         if (input[1][index] != zippedArray[index][1]) return false;
       }
       return true;
+    }
+  );
+
+  jsc.property(
+    'filter(input) == filter(fn, input)',
+    jsc.array(jsc.nat),
+    async input => {
+      const isOdd = (x: number) => x % 2 != 0;
+      const isEven = (x: number) => !isOdd(x);
+
+      const odds = filter(isOdd, of(input));
+      const evens = filter(isEven, odds);
+
+      const nothings = await collect(evens);
+      return nothings.length == 0;
     }
   );
 

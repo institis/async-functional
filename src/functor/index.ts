@@ -40,12 +40,12 @@ export async function* map<T, U>(
 /**
  * The filter uses a filter 'fn' which determines if an element of an iterator should be filtered through to the output iterator.
  *
- * @param iterator Input iterator on which a filter `fn` is applied.
  * @param fn A function which produces true, if an element should pass through. Else the element will not be filtered through.
+ * @param iterator Input iterator on which a filter `fn` is applied.
  */
 export async function* filter<T>(
-  iterator: AsyncGenerator<T>,
-  fn: (value: T) => boolean
+  fn: (value: T) => boolean,
+  iterator: AsyncGenerator<T>
 ) {
   for await (const t of iterator) {
     if (fn(t)) yield t;

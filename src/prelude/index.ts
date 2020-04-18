@@ -12,6 +12,14 @@ export async function* of<T>(iterator: Iterable<T>) {
 }
 
 /**
+ * An identity function, simply yields each elements in the input iterator.
+ * @param iterator Input iterator
+ */
+export async function* id<T>(iterator: AsyncGenerator<T>) {
+  for await (const i of iterator) yield i;
+}
+
+/**
  * Collect results of the async generator in a promise.
  *
  * @param iterator Input iterator.
@@ -53,6 +61,11 @@ export async function* takeWhile<T>(
   }
 }
 
+/**
+ * Compose two functions ufn, vfn such that value of function is vfn(ufn(x))
+ * @param ufn Output of 'ufn' is passed to 'vfn'
+ * @param vfn 'vfn' produces final output that is result of composed function
+ */
 export function compose<T, U, V>(
   ufn: (tval: T) => U,
   vfn: (vval: U) => V

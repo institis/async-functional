@@ -4,7 +4,7 @@
  */
 
 import * as jsc from 'jsverify';
-import {of, collect, take} from '..';
+import {of, collect, take, id} from '..';
 
 const arbitrayArraySubset = jsc.array(jsc.number);
 
@@ -21,6 +21,19 @@ describe('Prelude', () => {
     const result = await collect(take(of(input), subset));
     const min = Math.min(input.length, subset);
     return result.length == min;
+  });
+
+  jsc.property('input == id(input)', jsc.array(jsc.nat), async (input) => {
+    const result = await collect(id(of(input)));
+    if (result.length != input.length)
+      return false;
+
+    for (let index = 0; index < input.length; index++) {
+      if (result[index] != input[index])
+        return false;
+    }
+
+    return true;
   });
 
 });

@@ -4,7 +4,8 @@
  */
 
 import * as jsc from 'jsverify';
-import {of, collect, take, id} from '..';
+import {of, collect, take, id, compose } from '..';
+import { functor } from '../../functor';
 
 const arbitrayArraySubset = jsc.array(jsc.number);
 
@@ -34,6 +35,13 @@ describe('Prelude', () => {
     }
 
     return true;
+  });
+
+  jsc.property('fn1(fn2(x) == compose(fn2,fn1)(x)', jsc.nat, (value) => {
+    const square = (x: number) => x * x;
+    const add10  = (x: number) => x + 10;
+    const squareAndAdd10 = compose(square, add10);
+    return add10(square(value)) == squareAndAdd10(value);
   });
 
 });

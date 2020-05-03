@@ -17,7 +17,9 @@
     "stream",
     "functional programming",
     "generator",
-    "utility"
+    "utility",
+    "json",
+    "jsonpath"
   ],
   "scripts": {
     "test": "jest",

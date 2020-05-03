@@ -4,6 +4,8 @@ The asynchronous generator `AsyncGenerator` appears on many occasions. For examp
 
 One can consider `AysncGenerator` as a stream. This library allows async generators to be treated in functional manner.
 
+*New* JSON Path transformer added as functors so that it is possible to process set of JSONPaths together to create a single object.
+
 ## Contents
 
 ### Functional Operators
@@ -94,5 +96,23 @@ for await (const i of filter(evenFilter, input)) {
 // Output =>
 // output = 2
 // output = 4
+
+```
+
+### JSON Path transformation
+
+```ts
+import {jsonPathNumber, jsonTransform, jsonPathBoolean} from '..';
+
+  const numberMap = jsonPathNumber('$.number', 'mynumber');
+  const booleanMap = jsonPathBoolean('$.result', 'myboolean');
+  const transf = jsonTransform(nkeyMap, bkeyMap);
+  const input = {
+    number: 101.0,
+    result: false,
+  };
+  const output = transf(input);
+
+  // Should see { mynumber: 101.0, myboolean: false }
 
 ```

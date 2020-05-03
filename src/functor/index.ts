@@ -63,33 +63,26 @@ export async function* filter<T>(
 export async function* zip<T, U>(
   titerator: AsyncGenerator<T>,
   uiterator: AsyncGenerator<U>
-) {
-  let t = await titerator.next();
-  let u = await uiterator.next();
-  while (!t.done && !u.done) {
-    yield [t.value, u.value];
-    t = await titerator.next();
-    u = await uiterator.next();
-  }
+): AsyncGenerator<[T, U]> {
+  yield* zipWith((t, u) => [t, u], titerator, uiterator);
 }
 
 /**
  * This is same as `zip`, except a function `fn` is applied on each pair, and its result is pushed to output iterator.
  *
+ * @param fn A function that works on the pair.
  * @param titerator Left iterator to be combined pairwise with right iterator.
  * @param uiterator Right iterator to be combined pairwise with left iterator.
- * @param fn A function that works on the pair.
  */
 export async function* zipWith<T, U, V>(
+  fn: (tvalue: T, uvalue: U) => V,
   titerator: AsyncGenerator<T>,
-  uiterator: AsyncGenerator<U>,
-  fn: (tvalue: T, uvalue: U) => V
+  uiterator: AsyncGenerator<U>
 ) {
-  let t = await titerator.next();
-  let u = await uiterator.next();
-  while (!t.done && !u.done) {
-    yield fn(t.value, u.value);
-    t = await titerator.next();
-    u = await uiterator.next();
+  let tu = await Promise.all([titerator.next(), uiterator.next()]);
+  while (!tu[0].done && !tu[1].done) {
+    const applied = fn(tu[0].value, tu[1].value);
+    yield applied;
+    tu = await Promise.all([titerator.next(), uiterator.next()]);
   }
 }

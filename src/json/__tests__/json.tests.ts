@@ -21,6 +21,21 @@ describe('A JSON transform', () => {
     expect(output['bkey']).toBe(false);
   });
 
+  it('should map list of field maps over composite object to a single object', () => {
+    const nkeyMap = jsonPathNumber('$.number', 'nkey');
+    const bkeyMap = jsonPathBoolean('$.result.status', 'bkey');
+    const transf = jsonTransform(nkeyMap, bkeyMap);
+    const input = {
+      number: 101.0,
+      result: {
+          status: false 
+      }
+    };
+    const output = transf(input);
+    expect(output['nkey']).toBeCloseTo(101.0);
+    expect(output['bkey']).toBe(false);
+  });
+
   it('should map the transform over a list of objects', async () => {
     const nkeyMap = jsonPathNumber('$.number', 'nkey');
     const bkeyMap = jsonPathBoolean('$.result', 'bkey');

@@ -1,6 +1,6 @@
 {
   "name": "async-functional",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A functional approach to deal with async generators",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",

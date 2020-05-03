@@ -22,6 +22,20 @@ export function functor<T, U>(
   };
 }
 
+export function functorAsync<T, U>(
+  fn: (tval: T) => Promise<U>
+): (tgen: AsyncGenerator<T>) => AsyncGenerator<U> {
+  logger.debug('Lifting function', {function: functor.name});
+  return async function* lifted(tgen) {
+    logger.debug('Lifted functor from', {function: lifted.name});
+    for await (const t of tgen) {
+      logger.debug('Lifted functor', {function: lifted.name, value: t});
+      yield await fn(t);
+    }
+  };
+}
+
+
 /**
  * Map input to output using given function `fn`
  * @param iterator Iterator of type t
@@ -85,4 +99,17 @@ export async function* zipWith<T, U, V>(
     yield applied;
     tu = await Promise.all([titerator.next(), uiterator.next()]);
   }
+}
+
+export function flatMap<T, U>(
+  fn: (t: T) => U[]
+): (titer: AsyncGenerator<T>) => AsyncGenerator<U> {
+  return async function* flatMapInternal(titer: AsyncGenerator<T>) {
+    for await (const t of titer) {
+      const us = fn(t);
+      for (const u of us) {
+        yield u;
+      }
+    }
+  };
 }

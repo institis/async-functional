@@ -76,3 +76,7 @@ export function compose<T, U, V>(
     return v;
   };
 }
+
+export async function* single<T>(t: T) {
+  yield t;
+}

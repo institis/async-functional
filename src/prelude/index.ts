@@ -80,7 +80,3 @@ export function compose<T, U, V>(
 export async function* single<T>(t: T) {
   yield t;
 }
-
-export function composeAll(...args: any[]) {
-  return args.reduce((p, c) => compose(p, c), id);
-}

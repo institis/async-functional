@@ -35,7 +35,6 @@ export function functorAsync<T, U>(
   };
 }
 
-
 /**
  * Map input to output using given function `fn`
  * @param iterator Iterator of type t

@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import * as fc from 'fast-check';
-import {functor, map, zip, filter, zipWith} from '..';
+import {functor, map, zip, filter, zipWith, functorAsync, flatMap} from '..';
 import {of, compose, collect} from '../../prelude';
 import {logger} from '../../logging';
 import {fold} from '../../folds';
@@ -128,4 +128,33 @@ describe('A functor', () => {
       index = index + 1;
     }
   });
+
+  it('should correctly map async functor correctly', async () => {
+    const iterator = of([1, 2, 3, 4, 5]);
+    const output = [1, 4, 9, 16, 25];
+    const squareMap = functorAsync((x: number) => new Promise((res, rej) => res(x * x)));
+    let index = 0;
+    for await (const i of squareMap(iterator)) {
+      logger.debug('Mapped values', {value: i});
+      expect(i).toBe(output[index]);
+      index = index + 1;
+    }
+  });
+
+  it('should map array by flattening it', async () => {
+    const input = [5];
+    const toArray = flatMap( (n: number) => {
+      let output = [];
+      for (let i = 0; i < n; ++i)
+        output.push(i+1);
+      return output;
+    });
+
+    let output = 1;
+    for await (const i of toArray(of(input))) {
+      expect(i).toBe(output);
+      output += 1;
+    }
+  });
+
 });
